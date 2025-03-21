@@ -8,13 +8,19 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #e9ecef;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
+            overflow: hidden;
         }
         header {
             text-align: center;
             margin-bottom: 20px;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         #chatbox {
             width: 100%;
@@ -27,6 +33,11 @@
             margin: 0 auto;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         #userInput {
             width: calc(100% - 120px);
@@ -57,6 +68,7 @@
             margin: 10px 0;
             padding: 8px;
             border-radius: 4px;
+            transition: background-color 0.3s;
         }
         .user {
             text-align: right;
@@ -94,28 +106,34 @@
             color: white;
             cursor: pointer;
         }
+        /* Additional styles for aesthetics */
+        .animated {
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        /* Extra styles for buttons */
+        button {
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>KelvinGPT</h1>
+        <h1 class="animated">KelvinGPT</h1>
         <p>Part of Kelvin's Arcade. All rights reserved.</p>
         <p>Users may be asked for their age and password.</p>
-    </header>
-
-    <div id="chatbox"></div>
-    <input type="text" id="userInput" placeholder="Type your message...">
-    <button id="sendButton">Send</button>
-    
-    <h2>Upload Files</h2>
-    <input type="file" id="fileInput" multiple>
-    <button id="uploadButton">Upload</button>
-    
-    <button id="configButton">Configure API Key</button>
-    <button id="styleConfigButton">Style Configuration</button>
-
-    <div id="styleConfig">
-        <h3>Choose Chatbot Style</h3>
-        <select id="styleSelect">
-            <option value="default">Default</
