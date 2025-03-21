@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #e9ecef;
             margin: 0;
             padding: 20px;
         }
@@ -33,6 +33,7 @@
             padding: 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            margin-top: 10px;
         }
         #sendButton {
             padding: 10px;
@@ -41,8 +42,9 @@
             background-color: #007bff;
             color: white;
             cursor: pointer;
+            margin-top: 10px;
         }
-        #configButton {
+        #configButton, #styleConfigButton {
             margin-top: 20px;
             padding: 10px;
             border-radius: 4px;
@@ -53,14 +55,18 @@
         }
         .message {
             margin: 10px 0;
+            padding: 8px;
+            border-radius: 4px;
         }
         .user {
             text-align: right;
-            color: blue;
+            background-color: #d1ecf1;
+            color: #0c5460;
         }
         .bot {
             text-align: left;
-            color: green;
+            background-color: #c3e6cb;
+            color: #155724;
         }
         footer {
             text-align: center;
@@ -70,6 +76,23 @@
         }
         #fileInput {
             margin-top: 20px;
+        }
+        #styleConfig {
+            display: none;
+            margin-top: 20px;
+        }
+        #styleSelect {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        #applyStyleButton {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #ffc107;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -90,40 +113,9 @@
     <button id="uploadButton">Upload</button>
     
     <button id="configButton">Configure API Key</button>
+    <button id="styleConfigButton">Style Configuration</button>
 
-    <script>
-        const chatbox = document.getElementById('chatbox');
-        const userInput = document.getElementById('userInput');
-        const sendButton = document.getElementById('sendButton');
-        const fileInput = document.getElementById('fileInput');
-        const uploadButton = document.getElementById('uploadButton');
-        const configButton = document.getElementById('configButton');
-
-        let apiKey = '';
-
-        sendButton.addEventListener('click', () => {
-            const message = userInput.value;
-            if (message) {
-                addMessage('user', message);
-                userInput.value = '';
-                // Call your API here to get the response
-                // For example: callChatbotAPI(message);
-            }
-        });
-
-        function addMessage(sender, text) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', sender);
-            messageDiv.textContent = text;
-            chatbox.appendChild(messageDiv);
-            chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
-        }
-
-        uploadButton.addEventListener('click', () => {
-            const files = fileInput.files;
-            if (files.length > 12) {
-                alert("You can upload a maximum of 10 pictures and 2 files per day.");
-                return;
-            }
-            for (let i = 0; i < files.length; i++) {
-                addMessage('user', `Uploaded: ${files
+    <div id="styleConfig">
+        <h3>Choose Chatbot Style</h3>
+        <select id="styleSelect">
+            <option value="default">Default</
