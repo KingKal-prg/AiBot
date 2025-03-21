@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #121212;
+            color: #ffffff;
             margin: 0;
             padding: 20px;
             overflow: hidden;
@@ -26,13 +27,13 @@
             width: 100%;
             max-width: 800px;
             height: 500px;
-            border: 1px solid #ccc;
+            border: 1px solid #444;
             overflow-y: scroll;
-            background: white;
+            background: #1e1e1e;
             padding: 10px;
             margin: 0 auto;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             animation: slideIn 1s;
         }
         @keyframes slideIn {
@@ -43,10 +44,12 @@
             width: calc(100% - 120px);
             padding: 10px;
             border-radius: 4px;
-            border: 1px solid #ccc;
+            border: 1px solid #444;
             margin-top: 10px;
+            background-color: #333;
+            color: #fff;
         }
-        #sendButton {
+        #sendButton, #uploadButton {
             padding: 10px;
             border-radius: 4px;
             border: none;
@@ -55,14 +58,8 @@
             cursor: pointer;
             margin-top: 10px;
         }
-        #configButton, #styleConfigButton {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 4px;
-            border: none;
-            background-color: #28a745;
-            color: white;
-            cursor: pointer;
+        #sendButton:hover, #uploadButton:hover {
+            background-color: #0056b3;
         }
         .message {
             margin: 10px 0;
@@ -72,62 +69,22 @@
         }
         .user {
             text-align: right;
-            background-color: #d1ecf1;
-            color: #0c5460;
+            background-color: #007bff;
+            color: #ffffff;
         }
         .bot {
             text-align: left;
-            background-color: #c3e6cb;
-            color: #155724;
+            background-color: #444;
+            color: #ffffff;
         }
         footer {
             text-align: center;
             margin-top: 20px;
             font-size: 0.8em;
-            color: #666;
+            color: #aaa;
         }
         #fileInput {
             margin-top: 20px;
-        }
-        #styleConfig {
-            display: none;
-            margin-top: 20px;
-        }
-        #styleSelect {
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        #applyStyleButton {
-            padding: 10px;
-            border-radius: 4px;
-            border: none;
-            background-color: #ffc107;
-            color: white;
-            cursor: pointer;
-        }
-        /* Additional styles for aesthetics */
-        .animated {
-            animation: bounce 1s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-        /* Extra styles for buttons */
-        button {
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
         }
     </style>
 </head>
@@ -137,3 +94,37 @@
         <h1 class="animated">KelvinGPT</h1>
         <p>Part of Kelvin's Arcade. All rights reserved.</p>
         <p>Users may be asked for their age and password.</p>
+    </header>
+
+    <div id="chatbox"></div>
+
+    <input type="text" id="userInput" placeholder="Type your message here...">
+    <button id="sendButton">Send</button>
+    <input type="file" id="fileInput" accept="image/*">
+    <button id="uploadButton">Upload Image</button>
+
+    <footer>
+        <p>Chatbot powered by KelvinGPT</p>
+    </footer>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const uploadButton = document.getElementById('uploadButton');
+        const fileInput = document.getElementById('fileInput');
+
+        sendButton.addEventListener('click', () => {
+            const message = userInput.value;
+            if (message) {
+                addMessage(message, 'user');
+                userInput.value = '';
+                // Simulate bot response
+                setTimeout(() => {
+                    addMessage("I'm here to help! You said: " + message, 'bot');
+                }, 1000);
+            }
+        });
+
+        uploadButton.addEventListener('click', () => {
+            const
