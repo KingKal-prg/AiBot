@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KelvinGPT - Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #chatbox {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            background: white;
+            padding: 10px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        #userInput {
+            width: calc(100% - 120px);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        #sendButton {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #configButton {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .user {
+            text-align: right;
+            color: blue;
+        }
+        .bot {
+            text-align: left;
+            color: green;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #666;
+        }
+        #fileInput {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>KelvinGPT</h1>
+        <p>Part of Kelvin's Arcade. All rights reserved.</p>
+        <p>Users may be asked for their age and password.</p>
+    </header>
+
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type your message...">
+    <button id="sendButton">Send</button>
+    
+    <h2>Upload Files</h2>
+    <input type="file" id="fileInput" multiple>
+    <button id="uploadButton">Upload</button>
+    
+    <button id="configButton">Configure API Key</button>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const configButton = document.getElementById('configButton');
+
+        let apiKey = '';
+
+        sendButton.addEventListener('click', () => {
+            const message = userInput.value;
+            if (message) {
+                addMessage('user', message);
+                userInput.value = '';
+                // Call your API here to get the response
+                // For example: callChatbotAPI(message);
+            }
+        });
+
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.textContent = text;
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+        }
+
+        uploadButton.addEventListener('click', () => {
+            const files = fileInput.files;
+            if (files.length > 12) {
+                alert("You can upload a maximum of 10 pictures and 2 files per day.");
+                return;
+            }
+            for (let i = 0; i < files.length; i++) {
+                addMessage('user', `Uploaded: ${files
