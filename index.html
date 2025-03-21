@@ -86,7 +86,7 @@
         const sendButton = document.getElementById('send-btn');
         const fileInput = document.getElementById('file-input');
 
-        const apiKey = 'asst_UlPySZR1kGueiYnuTyLyMXbF'; // Your API key
+        const apiKey = 'sk-bc896a61afc649ddb11da51e769c574d'; // Your DeepSeek API key
 
         function addMessage(message, sender) {
             const messageDiv = document.createElement('div');
@@ -102,28 +102,27 @@
                 addMessage(message, 'user');
                 chatInput.value = '';
 
-                // Call OpenAI API
-                const response = await getChatbotResponse(message);
+                // Call DeepSeek API
+                const response = await getDeepSeekResponse(message);
                 addMessage(response, 'bot');
             }
         });
 
-        async function getChatbotResponse(message) {
+        async function getDeepSeekResponse(message) {
             try {
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                const response = await fetch('https://api.deepseek.com/v1/your-endpoint', { // Replace with actual DeepSeek API endpoint
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${apiKey}`
                     },
                     body: JSON.stringify({
-                        model: "gpt-3.5-turbo", // Specify the model you want to use
-                        messages: [{ role: "user", content: message }]
+                        query: message // Adjust the request body as per DeepSeek API requirements
                     })
                 });
 
                 const data = await response.json();
-                return data.choices[0].message.content; // Return the bot's response
+                return data.response; // Adjust based on the actual response structure from DeepSeek
             } catch (error) {
                 console.error('Error:', error);
                 return "Sorry, there was an error. Please try again.";
@@ -131,5 +130,4 @@
         }
 
         // Handle image upload
-        fileInput.addEventListener('change', (event) => {
-            const
+        fileInput.addEventListener('
