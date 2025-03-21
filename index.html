@@ -26,7 +26,7 @@
         #chatbox {
             width: 100%;
             max-width: 800px;
-            height: 500px;
+            height: 400px; /* Adjusted height */
             border: 1px solid #444;
             overflow-y: scroll;
             background: #1e1e1e;
@@ -114,17 +114,15 @@
         const uploadButton = document.getElementById('uploadButton');
         const fileInput = document.getElementById('fileInput');
 
+        function addMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + sender;
+            messageDiv.textContent = message;
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight; // Scroll to the bottom
+        }
+
         sendButton.addEventListener('click', () => {
             const message = userInput.value;
             if (message) {
-                addMessage(message, 'user');
-                userInput.value = '';
-                // Simulate bot response
-                setTimeout(() => {
-                    addMessage("I'm here to help! You said: " + message, 'bot');
-                }, 1000);
-            }
-        });
-
-        uploadButton.addEventListener('click', () => {
-            const
+                addMessage(message, 'user
